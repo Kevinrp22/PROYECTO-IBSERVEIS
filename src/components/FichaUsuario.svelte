@@ -33,9 +33,12 @@
     border-radius: 100%;
     padding: 0 20px;
   }
+  .card__content{
+    padding: 0 55px 0px 0px;
+  }
   .card__content--name {
     margin-top: 14px;
-    font-size: 1.3em;
+    font-size: 1.1em;
   }
   .card__userid {
     position: absolute;
@@ -85,7 +88,7 @@
 </div>
 
 <div class="card__content" bind:this={varDestello}>
-  <h1 class="card__content--name">{usuario.name.first} {usuario.name.last}</h1>
+  <h1 contenteditable="true" class="card__content--name">{usuario.name.first} {usuario.name.last}</h1>
 </div>
 <div class="card__buttons">
   <button

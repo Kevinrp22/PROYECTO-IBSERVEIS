@@ -1,8 +1,12 @@
 <script>
   import { setContext } from "svelte";
-  import Navbar from "./components/Navbar.svelte";
+  import { scale, blur, fade, slide, fly } from "svelte/transition";
+  import Sidebar from "./components/Sidebar.svelte";
   import ListadoUsuarios from "./components/ListaUsuarios.svelte";
   import FormuNuevoUsuario from "./components/FichaNueva.svelte";
+  import PaginaUser from "./components/PaginaUser.svelte";
+  import Navbar from "./components/Navbar.svelte";
+
   // datos
   import usersData from "./others/list";
 
@@ -12,10 +16,13 @@
 
   //variables para editar usuario
   let set_id = null;
-  let setnamefirst = "name1";
-  let setnamelast = "name2";
-  let setuseremail = "email@prueba.es";
-  let setuserpicture = "https://randomuser.me/api/portraits/med/women/7.jpg";
+  let setnamefirst = "Nombre";
+  let setnamelast = "Apellido";
+  let setuseremail = "email@gmail.es";
+  let setuserpicture =
+    "https://randomuser.me/api/portraits/med/women/" +
+    Math.floor(Math.random() * 70) +
+    ".jpg";
 
   //context
   setContext("borrar", eliminarUsuario); // con Context por estar a 2 niveles (app->lista->ficha)
@@ -92,11 +99,15 @@
 </script>
 
 <style>
-  header {
-    background-color: var(--colorPrimario);
+  .contenido-app {
+    display: grid;
+    grid-template-areas: "sidebar page";
+    grid-template-columns: 1fr;
   }
+
   .page {
-    background-color: rgb(128, 166, 236);
+    min-height: 500px;
+    grid-area: page;
   }
   .c-usuarios {
     display: grid;
@@ -106,45 +117,74 @@
   .form-user {
     position: absolute;
     z-index: 1000;
-    width: 100%;
+    width: 50%;
     height: 100%;
     background-color: white;
     box-sizing: border-box;
     padding: 20px;
   }
 
+  @media screen and (min-width: 550px) {
+    .contenido-app {
+      grid-template-columns: min-content 1fr;
+    }
+  }
   @media screen and (min-width: 768px) {
+    .c-usuarios {
+      grid-template-columns: repeat(2, 1fr);
+    }
   }
 
-  @media screen and (min-width: 1280px) {
+  @media screen and (min-width: 1200px) {
+    .c-usuarios {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  @media screen and (min-width: 1500px) {
+    .c-usuarios {
+      grid-template-columns: repeat(4, 1fr);
+    }
   }
 </style>
 
 <svelte:options immutable={true} />
 <!-- al eliminar 1 usuario, no parece que actue "immutable" ??? -->
-<header>
-  <Navbar {verformularionuevo} />
-</header>
-<main>
-  {#if estaNuevo}
-    <div class="form-user">
-      <FormuNuevoUsuario
-        {agregarUsuario}
-        {verformularionuevo}
-        namefirst={setnamefirst}
-        namelast={setnamelast}
-        useremail={setuseremail}
-        userpicture={setuserpicture}
-        {estaEditando}
-        {modificarUsuario} />
-    </div>
-  {/if}
+<div class="contenido-app">
 
-  <div class="page">
-    <h3 class="k-title k-padding">Listado Usuarios</h3>
-    <div class="c-usuarios k-grid">
-      <ListadoUsuarios {lista_usuarios} />
-    </div>
-  </div>
+  <Sidebar {verformularionuevo} />
 
-</main>
+  <main>
+    <Navbar />
+
+    <div class="page">
+      {#if estaNuevo}
+        <div class="form-user" transition:fly={{ x: -200, duration: 1000 }}>
+          <FormuNuevoUsuario
+            {agregarUsuario}
+            {verformularionuevo}
+            namefirst={setnamefirst}
+            namelast={setnamelast}
+            useremail={setuseremail}
+            userpicture={setuserpicture}
+            {estaEditando}
+            {modificarUsuario} />
+        </div>
+      {/if}
+
+      <h3 class="k-title k-padding">Listado Usuarios</h3>
+      <div class="c-usuarios k-grid">
+        <ListadoUsuarios {lista_usuarios} />
+      </div>
+    </div>
+
+    <PaginaUser
+      {agregarUsuario}
+      {verformularionuevo}
+      namefirst={setnamefirst}
+      namelast={setnamelast}
+      useremail={setuseremail}
+      userpicture={setuserpicture}
+      {estaEditando}
+      {modificarUsuario} />
+  </main>
+</div>

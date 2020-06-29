@@ -1,31 +1,20 @@
 <script>
-  export let verformularionuevo;
+import { getContext } from "svelte";
+
+const funcionSidebar = getContext("estadoSidebar-nav")
 </script>
 
 <style>
-  h2 {
-    font-weight: normal;
-    text-transform: capitalize;
-    color: var(--mainWhite);
-    margin-bottom: 0px;
-  }
-
-  .nav {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    height: 5rem;
-    background: var(--primaryColor);
-    box-shadow: var(--lightShadow);
+  header {
+    background-color: rgb(54, 102, 192);
+    padding: 20px;
   }
 </style>
 
-<nav class="nav">
-  <h2>Gestión usuarios</h2>
-  <button
-    type="button"
-    class="btn"
-    on:click|preventDefault={() => verformularionuevo(true)}>
-    Añadir usuario
+<header>
+  <button class="btn" on:click={funcionSidebar}>
+    <i class="fas fa-bars" />
   </button>
-</nav>
+  <nav />
+
+</header>

@@ -61,7 +61,7 @@
   }
 </style>
 
-<div class="c-form-user" >
+<div class="c-page-user" >
   <form>
     <div class="usuario-data">
       <div class="grupo">
