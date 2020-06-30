@@ -20,9 +20,8 @@
   let setnamelast = "Apellido";
   let setuseremail = "email@gmail.es";
   let setuserpicture =
-    "https://randomuser.me/api/portraits/med/women/" +
-    Math.floor(Math.random() * 70) +
-    ".jpg";
+    "https://randomuser.me/api/portraits/med/women/2.jpg";
+  
 
   //context
   setContext("borrar", eliminarUsuario); // con Context por estar a 2 niveles (app->lista->ficha)
@@ -106,6 +105,7 @@
   }
 
   .page {
+    position: relative;
     min-height: 500px;
     grid-area: page;
   }
@@ -124,7 +124,7 @@
     padding: 20px;
   }
 
-  @media screen and (min-width: 550px) {
+  @media screen and (min-width: 574px) {
     .contenido-app {
       grid-template-columns: min-content 1fr;
     }
@@ -156,10 +156,11 @@
   <main>
     <Navbar />
 
-    <div class="page">
+    <div class="page k-grid">
       {#if estaNuevo}
         <div class="form-user" transition:fly={{ x: -200, duration: 1000 }}>
           <FormuNuevoUsuario
+            {lista_usuarios}
             {agregarUsuario}
             {verformularionuevo}
             namefirst={setnamefirst}
@@ -175,16 +176,16 @@
       <div class="c-usuarios k-grid">
         <ListadoUsuarios {lista_usuarios} />
       </div>
+      <PaginaUser
+        {agregarUsuario}
+        {verformularionuevo}
+        namefirst={setnamefirst}
+        namelast={setnamelast}
+        useremail={setuseremail}
+        userpicture={setuserpicture}
+        {estaEditando}
+        {modificarUsuario} />
     </div>
 
-    <PaginaUser
-      {agregarUsuario}
-      {verformularionuevo}
-      namefirst={setnamefirst}
-      namelast={setnamelast}
-      useremail={setuseremail}
-      userpicture={setuserpicture}
-      {estaEditando}
-      {modificarUsuario} />
   </main>
 </div>

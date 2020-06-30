@@ -68,7 +68,7 @@ function toggleSidebar (){
     color: white;
   }
 
-  @media screen and (max-width: 550px) {
+  @media screen and (max-width: 574px) {
     .sidebar {
       position: fixed;
       transform: translate3d(-256px, 0, 0);
