@@ -1,4 +1,5 @@
 <script>
+  import { NotificationDisplay, notifier } from "@beyonk/svelte-notifications";
   import { getContext } from "svelte";
   import { scale, blur, fade, slide, fly } from "svelte/transition";
   import * as comprueba from "../codigo/verifica.js";
@@ -16,6 +17,12 @@
   export let verformularionuevo;
 
   let alertSucces = false;
+  let n;
+
+  let stringSucces =
+    "<span><i class='fas fa-check' /></span><span>Datos actualizados con éxito!</span>";
+  let stringDanger =
+    "<span><i class='fas fa-exclamation-circle' /></span><span>Ocurrió un error</span>";
 
   //context
   //const agregar = getContext('agregar')
@@ -24,15 +31,21 @@
   function previo() {
     validacion = comprueba.validar(namefirst, namelast, useremail, userpicture);
     if (validacion) {
-      mensaje.innerHTML = " Datos validos     ";
+      notifier.success(
+        "<span class='icono-alert'><i class='fas fa-check'></i></span><span>Datos actualizados con éxito!</span>",
+        3000
+      );
       if (estaEditando) {
         modificarUsuario({ namefirst, namelast, useremail, userpicture });
       } else {
         agregarUsuario({ namefirst, namelast, useremail, userpicture });
       }
     } else {
-      mensaje.innerHTML = "Introduce datos validos    ";
       txt_firstname.focus();
+      notifier.danger(
+        "<span class='icono-alert'><i class='fas fa-exclamation-circle'></i></span><span>Ocurrió un error</span>",
+        3000
+      );
     }
   }
 </script>
@@ -135,7 +148,7 @@
     top: 30px;
     background-color: rgba(226, 27, 27, 0.801);
     padding: 20px;
-    color:white;
+    color: white;
     border-radius: 5px;
   }
 
@@ -229,18 +242,8 @@
     </form>
   </div>
 
-  <div id="mensaje" />
-
-  {#if alertSucces}
-    <div class="modal-succes">
-      <i class="fas fa-check" />
-      Datos actualizados con éxito!
-    </div>
-  {:else}
-    <div class="modal-error">
-      <i class="fas fa-exclamation-circle" />
-      Ocurrió un error
-    </div>
-  {/if}
+  
+  <NotificationDisplay bind:this={n} />
+  
 
 </div>
