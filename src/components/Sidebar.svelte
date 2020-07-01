@@ -6,10 +6,10 @@
 
   setContext("estadoSidebar-nav", toggleSidebar);
 
-function toggleSidebar (){
+  function toggleSidebar() {
     sideEstado = !sideEstado;
     console.log("HOLAAA");
-  };
+  }
 </script>
 
 <style>

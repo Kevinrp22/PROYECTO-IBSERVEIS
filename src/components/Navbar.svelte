@@ -2,6 +2,9 @@
 import { getContext } from "svelte";
 
 const funcionSidebar = getContext("estadoSidebar-nav")
+console.log(funcionSidebar)
+
+
 </script>
 
 <style>
