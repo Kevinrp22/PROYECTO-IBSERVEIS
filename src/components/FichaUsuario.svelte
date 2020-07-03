@@ -10,7 +10,7 @@
   //context
   // el boton elimina enlaza con function en archivo padre
   const eliminaraqui = getContext("borrar");
-  const modificaraqui = getContext("modificar");
+  const verperfil = getContext("verperfil");
 
   let varDestello;
 
@@ -93,9 +93,14 @@
 <div class="card__buttons">
   <button
     class="card__buttons--btnEditar"
-    on:click={modificaraqui(usuario._id)}>
+    on:click={verperfil(usuario._id)}>
     <i class="fas fa-pen" />
   </button>
+  <!-- <button
+    class="card__buttons--btnEditar"
+    on:click={modificaraqui(usuario._id)}>
+    <i class="fas fa-pen" />
+  </button> -->
   <button
     class="card__buttons--btnEliminar"
     on:click={eliminaraqui(usuario._id)}>

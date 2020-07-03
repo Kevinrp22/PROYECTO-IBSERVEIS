@@ -9,11 +9,11 @@
   export let useremail;
   export let userpicture;
   export let validacion = false;
-  export let estaEditando;
-  export let modificarUsuario;
 
   export let agregarUsuario;
   export let verformularionuevo;
+
+  const cerrarPerfil = getContext("cerrarperfil");
 
   //context
   //const agregar = getContext('agregar')
@@ -23,11 +23,8 @@
     validacion = comprueba.validar(namefirst, namelast, useremail, userpicture);
     if (validacion) {
       mensaje.innerHTML = " Datos validos     ";
-      if (estaEditando) {
-        modificarUsuario({ namefirst, namelast, useremail, userpicture });
-      } else {
-        agregarUsuario({ namefirst, namelast, useremail, userpicture });
-      }
+      agregarUsuario({ namefirst, namelast, useremail, userpicture });
+      cerrarPerfil()
     } else {
       mensaje.innerHTML = "Introduce datos validos    ";
       txt_firstname.focus();
@@ -45,23 +42,23 @@
     font-size: 1em;
     background-color: rgb(247, 247, 247);
   }
-  .grupo{
+  .grupo {
     margin: 10px 0;
   }
-  .grupo label{
+  .grupo label {
     display: block;
-    font-family: 'Open Sans', sans-serif;
+    font-family: "Open Sans", sans-serif;
     text-transform: uppercase;
     font-weight: 600;
     font-size: 1.3em;
     margin-bottom: 10px;
   }
-  .botones-ficha{
+  .botones-ficha {
     display: flex;
   }
 </style>
 
-<div class="c-form-user" >
+<div class="c-form-user">
   <form>
     <div class="usuario-data">
       <div class="grupo">
@@ -84,9 +81,7 @@
     <!-- fin row -->
 
     <div class="botones-ficha">
-      <button class="btn" on:click|preventDefault={previo}>
-        {#if estaEditando}Editar{:else}Añadir{/if}
-      </button>
+      <button class="btn" on:click|preventDefault={previo}>Añadir</button>
       <button
         class="btn"
         on:click|preventDefault={() => verformularionuevo(false)}>

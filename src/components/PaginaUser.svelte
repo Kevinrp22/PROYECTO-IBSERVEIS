@@ -12,12 +12,16 @@
   export let validacion = false;
   export let estaEditando;
   export let modificarUsuario;
-
   export let agregarUsuario;
   export let verformularionuevo;
+  export let usuariodata;
+  export let estadoPerfil;
 
   let alertSucces = false;
   let n;
+
+  const verPerfil = getContext("verperfil");
+  const cerrarPerfil = getContext("cerrarperfil");
 
   let stringSucces =
     "<span><i class='fas fa-check' /></span><span>Datos actualizados con éxito!</span>";
@@ -31,10 +35,11 @@
   function previo() {
     validacion = comprueba.validar(namefirst, namelast, useremail, userpicture);
     if (validacion) {
-      notifier.success(
+       notifier.success(
         "<span class='icono-alert'><i class='fas fa-check'></i></span><span>Datos actualizados con éxito!</span>",
         3000
       );
+      cerrarPerfil()
       if (estaEditando) {
         modificarUsuario({ namefirst, namelast, useremail, userpicture });
       } else {
@@ -52,6 +57,7 @@
 
 <style>
   /*     box-shadow: 0 4px 25px 0 rgba(0, 0, 0, 0.1); */
+
   .btn {
     padding: 5px 10px;
     border-radius: 0;
@@ -63,24 +69,34 @@
   }
 
   .c-page-user {
-    display: grid;
+    display: none;
     grid-template-columns: 1fr;
+    grid-template-rows: min-content min-content;
     gap: 15px;
     box-sizing: border-box;
     position: absolute;
     height: 100vh;
     width: 100%;
     top: 0;
+    left: 0;
     bottom: 0;
     background-color: rgb(153, 86, 86);
     padding: 20px;
+    
+    
+  }
+
+  .active {
+    display: grid;
   }
   .user-page__option {
+    overflow: hidden;
     background-color: white;
     box-shadow: 0 4px 25px 0 rgba(0, 0, 0, 0.1);
     border-radius: 10px;
   }
   .user-option--item {
+    
     cursor: pointer;
     display: flex;
     padding: 15px;
@@ -90,6 +106,7 @@
     background-color: rgb(62, 73, 99);
   }
   .user-page__content {
+    height: min-content;
     background-color: white;
     box-shadow: 0 4px 25px 0 rgba(0, 0, 0, 0.1);
     border-radius: 10px;
@@ -174,7 +191,7 @@
   }
 </style>
 
-<div class="c-page-user">
+<div class="c-page-user" class:active={estadoPerfil}>
   <div class="user-page__option">
     <div class="user-option--item">
       <span>
@@ -234,7 +251,7 @@
         </button>
         <button
           class="btn-cancel"
-          on:click|preventDefault={() => verformularionuevo(false)}>
+          on:click|preventDefault={() => cerrarPerfil()}>
           Cancelar
         </button>
       </div>
@@ -242,8 +259,6 @@
     </form>
   </div>
 
-  
   <NotificationDisplay bind:this={n} />
-  
 
 </div>

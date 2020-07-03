@@ -2,19 +2,13 @@
   export let verformularionuevo;
   import { setContext } from "svelte";
   import Navbar from "./Navbar.svelte";
-  let sideEstado = false;
 
-  setContext("estadoSidebar-nav", toggleSidebar);
-
-  function toggleSidebar() {
-    sideEstado = !sideEstado;
-    console.log("HOLAAA");
-  }
+  export let sideEstado;
 </script>
 
 <style>
   .active {
-    transform: translate3d(0%, 0, 0) !important;
+    transform: translate3d(0px, 0, 0) !important;
   }
   h2 {
     font-weight: normal;
@@ -74,6 +68,12 @@
       transform: translate3d(-256px, 0, 0);
       transition: transform 0.3s cubic-bezier(0.4, 0, 1, 1);
     }
+    .sidebar.active {
+      width: 256px;
+    }
+    .sidebar.active .sidebar__blocks__item--text {
+      opacity: 1;
+    }
   }
   @media screen and (max-width: 920px) {
     .sidebar {
@@ -100,6 +100,17 @@
       <span class="sidebar__blocks__item--text">Añadir usuario</span>
 
     </li>
+    <li
+      class="sidebar__blocks__item"
+      on:click|preventDefault={() => verformularionuevo(true)}>
+
+      <span class="sidebar__blocks__item--icon">
+        <i class="fas fa-user-plus" />
+      </span>
+      <span class="sidebar__blocks__item--text">Añadir usuario</span>
+
+    </li>
+    
 
   </ul>
 </div>

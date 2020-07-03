@@ -31,7 +31,7 @@ body {
   font-size: 14px;
   font-family: 'Ubuntu', sans-serif;
   height: 100%;
-  background-color: rgb(226, 226, 226);
+  background-color: #F8F8F8;
   /* font-family: 'Poppins', sans-serif; */
 }
 
@@ -117,7 +117,7 @@ a:hover {
 .k-grid {
   max-width: var(--width-container);
   margin: 0 auto;
-  /* padding: 0 20px; */
+  padding: 0 20px; 
   transition: padding .5s ease;
 }
 
